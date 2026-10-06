@@ -218,31 +218,23 @@
         document.getElementById("results6").textContent =
             "Changing currency...";
 
-        fetch("https://api.frankfurter.app/latest?from=EUR&to=USD")
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("API error: " + response.status);
-                }
+      fetch("https://api.exchangerate-api.com/v4/latest/EUR")
+    .then(response => response.json())
+    .then(data => {
 
-                return response.json();
-            })
-            .then(data => {
+        let rate = data.rates.USD;
+        let convertedTotal = answer * rate;
 
-                console.log(data);
+        document.getElementById("results6").textContent =
+            "Total: $" + convertedTotal.toFixed(2);
+    })
+    .catch(error => {
 
-                let rate = data.rates.USD;
-                let convertedTotal = answer * rate;
+        console.error(error);
 
-                document.getElementById("results6").textContent =
-                    "Total: $" + convertedTotal.toFixed(2);
-            })
-            .catch(error => {
-
-                console.error(error);
-
-                document.getElementById("results6").textContent =
-                    "Currency conversion failed: " + error.message;
-            });
+        document.getElementById("results6").textContent =
+            "Currency conversion failed: " + error.message;
+    });
 
     });
 </script>
