@@ -180,7 +180,7 @@
 
 <p id="results6"></p>
 
-<button onclick="changeCurrency()">Change Currency</button>
+<button id="currencyButton">Change Currency</button>
 
 <script>
 
@@ -188,7 +188,7 @@
 
         let cost = 0;
 
-        for(let key in basket){
+        for (let key in basket) {
             cost += basket[key] * prices[key];
         }
 
@@ -219,7 +219,7 @@
         "Total: €" + answer.toFixed(2);
 
 
-    function changeCurrency() {
+    document.getElementById("currencyButton").addEventListener("click", function () {
 
         fetch("https://api.frankfurter.app/latest?from=EUR&to=USD")
 
@@ -236,10 +236,16 @@
 
             })
 
-            .catch(error => { console.log(error);
+            .catch(error => {
+
+                console.log(error);
+
+                document.getElementById("results6").textContent =
+                    "Currency conversion failed.";
+
             });
 
-    }
+    });
 
 </script>
 </body>
