@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multiples</title>
+</head>
+<body>
+
+    <h1>Excercises 1</h1>
+    <h2>Multiples of 3 or 5</h2>
+    <p id="result"></p>
+
+    <script>
+        let multiples = [];
+
+        for (let n = 1; n < 1000; n++) {
+            if (n % 3 === 0 || n % 5 === 0) {
+                multiples.push(n);
+            }
+        }
+
+       
+        document.getElementById("result").textContent = multiples.join(", ");
+    </script>
+
+
+    <h1>Exercise 2</h1>
+<h2>Addition of X and Y below n</h2>
+
+<label>X:</label>
+<input type="number" id="x">
+<br>
+
+<label>Y:</label>
+<input type="number" id="y">
+<br>
+
+<label>Z:</label>
+<input type="number" id="z">
+<br>
+
+<button onclick="f()">Submit</button>
+
+<p id="results2"></p>
+
+<script>
+    let f = () => {
+
+        let x = parseInt(document.getElementById('x').value);
+        let y = parseInt(document.getElementById('y').value);
+        let z = parseInt(document.getElementById('z').value);
+
+        let result = [];
+
+        for (let n = 1; n < z; n++) {
+            if (n % x === 0 || n % y === 0) {
+                result.push(n);
+            }
+        }
+
+        document.getElementById("results2").textContent = result.join(", ");
+    }
+   
+</script>
+
+     <h1>Exercise 3</h1>
+    <h2>Euler List 1</h2>
+
+    <p id="results3"></p>
+
+    <script>
+
+        let listEuler1 = (a, b, l) => {
+
+            let sum = 0;
+
+            for (let n of l) {
+                if (n % a === 0 || n % b === 0) {
+                    sum += n;
+                }
+            }
+
+            return sum;
+        };
+
+
+        let eulerlist = () => {
+
+            let a = 2;
+            let b = 3;
+            let l = [1, 2, 3, 4, 5, 6, 7, 9, 10, 10, 10];
+
+            let answer = listEuler1(a, b, l);
+
+
+           document.getElementById("results3").textContent = answer;
+        };
+
+        eulerlist();
+
+    </script>
+
+
+    <h1>Exercise 4</h1>
+    <h2>Euler List 2</h2>
+
+    <p id="results4"></p>
+
+    <script>
+
+        let listEuler2 = (a, l) => {
+
+            let sum = 0;
+
+            for (let n of l) {              
+                 for (let x of a) {if (n % x === 0) 
+                    {
+                        sum += n;
+                        break;
+                    }
+
+                }
+
+            }
+
+            return sum;
+        };
+
+
+        let euler2Lists = () => {
+
+            let a = [2, 3];
+            let l = [1, 2, 3, 4, 5, 6, 7, 9, 10, 10, 10];
+
+            let answer = listEuler2(a, l);
+
+            document.getElementById("results4").textContent = answer;
+        };
+
+        euler2Lists();
+
+    </script>
+
+
+    <h1>Exercise 5</h1>
+    <h2>Euler List 3</h2>
+
+    <p id="results5"></p>
+
+    <script>
+        let listEuler3 = (a, l) => {
+            let sum = 0;
+
+            for (let n of l) {for (let x of a) {
+                    if (n % x === 0) 
+                    {
+                        sum += n;
+                        break;
+                    }
+        }
+    }
+
+            return sum;
+        };
+
+
+        let euler2Lists1 = () => {
+            let a = [2, 3, 5];
+            let l = [1, 2, 3, 4, 5, 6, 7, 9, 10, 10, 10];
+            let answer = listEuler3(a, l);
+            document.getElementById("results5").textContent = answer;
+        };
+
+        euler2Lists1();
+
+    </script>
+
+<h1>Exercise 6</h1>
+<h2>Basket Total</h2>
+
+<p id="results6"></p>
+
+<button onclick="changeCurrency()">Change Currency</button>
+
+<script>
+
+    let total = (basket, prices) => {
+
+        let cost = 0;
+
+        for(let key in basket){
+            cost += basket[key] * prices[key];
+        }
+
+        return cost;
+    };
+
+
+    let basket = {
+        milk: 2,
+        meat: 4,
+        bread: 2,
+        eggs: 1
+    };
+
+
+    let prices = {
+        milk: 3.20,
+        meat: 4.50,
+        bread: 1.90,
+        eggs: 1.60
+    };
+
+
+    let answer = total(basket, prices);
+
+
+    document.getElementById("results6").textContent =
+        "Total: €" + answer.toFixed(2);
+
+
+    function changeCurrency() {
+
+        fetch("https://api.frankfurter.app/latest?from=EUR&to=USD")
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                let rate = data.rates.USD;
+
+                let convertedTotal = answer * rate;
+
+                document.getElementById("results6").textContent =
+                    "Total: $" + convertedTotal.toFixed(2);
+
+            })
+
+            .catch(error => { console.log(error);
+            });
+
+    }
+
+</script>
+</body>
+</html>
